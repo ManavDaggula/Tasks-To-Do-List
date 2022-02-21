@@ -2,7 +2,7 @@ import tkinter as tki
 import task_functions as func
 root=tki.Tk()
 root.title("To-Do List")
-p1=tki.PhotoImage(file="mini-project\\list_icon.png")
+p1=tki.PhotoImage(file="list_icon.png")
 root.iconphoto(False,p1)
 # root.geometry("300x300")
 
@@ -20,12 +20,12 @@ frm_task_table=tki.Frame(root)
 frm_task_table.pack(fill=tki.BOTH)
 
 # ADDING TASKS TITLES TO THE CONTAINER WITH THEIR OWN FRAME INTO THE TASK TABLE
-frm_task_title=tki.Frame(frm_task_table,bg="black")
+frm_task_title=tki.Frame(frm_task_table)
 frm_task_title.pack(fill=tki.X)
-lbl_name=tki.Label(frm_task_title,text="Name")
-lbl_description=tki.Label(frm_task_title,text="Description")
-lbl_due=tki.Label(frm_task_title,text="Due")
-lbl_done=tki.Label(frm_task_title,text="Done?")
+lbl_name=tki.Label(frm_task_title,text="Name",font=("Helvetica","15"))
+lbl_description=tki.Label(frm_task_title,text="Description",font=("Helvetica","15"))
+lbl_due=tki.Label(frm_task_title,text="Due",font=("Helvetica","15"))
+lbl_done=tki.Label(frm_task_title,text="Done?",font=("Helvetica","15"))
 lbl_name.grid(row=0,column=0,padx=3,pady=2,sticky="nsew")
 lbl_description.grid(row=0,column=1,padx=3,pady=2,sticky="nsew")
 lbl_due.grid(row=0,column=2,padx=3,pady=2,sticky="nsew")
@@ -57,24 +57,29 @@ btn_new_task=tki.Button(frm_task_table,text="Add a task",command=lambda: func.sw
 btn_new_task.pack(side=tki.BOTTOM)
 
 # CREATING NEW FRAME TO ADD A TASK
-frm_new_task=tki.Frame(root,bg="orange")
-lbl_name_addframe=tki.Label(frm_new_task,text="Task name:")
+frm_new_task=tki.Frame(root)
+lbl_name_addframe=tki.Label(frm_new_task,text="Task name:",font=("Helvetica","15"))
 lbl_name_addframe.grid(row=0,column=0)
-lbl_desc_addframe=tki.Label(frm_new_task,text="Task description:")
+lbl_desc_addframe=tki.Label(frm_new_task,text="Task description:",font=("Helvetica","15"))
 lbl_desc_addframe.grid(row=1,column=0)
-lbl_due_addframe=tki.Label(frm_new_task,text="Task due:")
+lbl_due_addframe=tki.Label(frm_new_task,text="Task due:",font=("Helvetica","15"))
 lbl_due_addframe.grid(row=2,column=0)
-ent_name_addframe=tki.Entry(frm_new_task)
+ent_name_addframe=tki.Entry(frm_new_task,font=("Helvetica","15"))
 ent_name_addframe.grid(row=0,column=1)
-ent_desc_addframe=tki.Entry(frm_new_task)
+ent_desc_addframe=tki.Entry(frm_new_task,font=("Helvetica","15"))
 ent_desc_addframe.grid(row=1,column=1)
-ent_due_addframe=tki.Entry(frm_new_task)
+ent_due_addframe=tki.Entry(frm_new_task,font=("Helvetica","15"))
 ent_due_addframe.grid(row=2,column=1)
 # ADDING BUTTON TO ADD AND SAVE THE TASK AND CANCEL
 btn_add=tki.Button(frm_new_task,text="Add",command=lambda: func.add_new_task(ent_name_addframe, ent_desc_addframe, ent_due_addframe, tasks, task_widget, frm_task_holder, frm_new_task, frm_task_table, checkbutton_states))
 btn_add.grid(row=3,column=1)
 btn_cancel=tki.Button(frm_new_task,text="Cancel",command=lambda: func.switch_frames(frm_new_task, frm_task_table))
 btn_cancel.grid(row=3,column=0)
+for i in range(2):
+    frm_new_task.columnconfigure(i,weight=1)
+for i in range(4):
+    frm_new_task.rowconfigure(i,weight=1)
 
 root.protocol("WM_DELETE_WINDOW",lambda : func.save_tasks(tasks, root))
+# root.after(1000, func.time_thread(root))
 root.mainloop()
