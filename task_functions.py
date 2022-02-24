@@ -28,9 +28,9 @@ def task_2_widget(tasks,window):
     task_widgets=[]
     btn_state=[]
     for i in range(len(tasks)):
-        task_name=tk.Label(window,text=tasks[i]["name"],font=("Helvetica","15"))
-        task_desc=tk.Label(window,text=tasks[i]["desc"],font=("Helvetica","15"))
-        task_due=tk.Label(window,text=tasks[i]["due"],font=("Helvetica","15"))
+        task_name=tk.Label(window,text=tasks[i]["name"],font=("Helvetica","10"))
+        task_desc=tk.Label(window,text=tasks[i]["desc"],font=("Helvetica","10"))
+        task_due=tk.Label(window,text=tasks[i]["due"],font=("Helvetica","10"))
         done_state=tk.IntVar()
         btn_state.append(done_state)
         task_done=tk.Checkbutton(window,variable=done_state, command=lambda: remove_task(task_widgets,tasks,btn_state))
@@ -45,17 +45,17 @@ def add_new_task(ent_name, ent_desc, ent_due, tasks, task_widgets, frm_task_hold
     count=len(tasks)
     name, desc, due = ent_name.get(), ent_desc.get(), ent_due.get()
     tasks.append({"name":name,"desc":desc,"due":due})
-    task_name=tk.Label(frm_task_holder,text=name,font=("Helvetica","15"))
-    task_desc=tk.Label(frm_task_holder,text=desc,font=("Helvetica","15"))
-    task_due=tk.Label(frm_task_holder,text=due,font=("Helvetica","15"))
+    task_name=tk.Label(frm_task_holder,text=name,font=("Helvetica","10"))
+    task_desc=tk.Label(frm_task_holder,text=desc,font=("Helvetica","10"))
+    task_due=tk.Label(frm_task_holder,text=due,font=("Helvetica","10"))
     done_state=tk.IntVar()
     btn_state.append(done_state)
     task_done=tk.Checkbutton(frm_task_holder, variable=done_state, command=lambda: remove_task(task_widgets,tasks,btn_state))
     task_widgets.append({"name":task_name,"desc":task_desc,"due":task_due,"done":task_done})
-    task_name.grid(row=count,column=0,padx=3,pady=2,sticky="nsew")
-    task_desc.grid(row=count,column=1,padx=3,pady=2,sticky="nsew")
-    task_due.grid(row=count,column=2,padx=3,pady=2,sticky="nsew")
-    task_done.grid(row=count,column=3,padx=3,pady=2,sticky="nsew")
+    task_name.grid(row=count,column=0,pady=2,sticky="nsew")
+    task_desc.grid(row=count,column=1,pady=2,sticky="nsew")
+    task_due.grid(row=count,column=2,pady=2,sticky="nsew")
+    task_done.grid(row=count,column=3,pady=2,sticky="nsew")
     switch_frames(frm1, frm2)
 
 def remove_task(task_widgets, tasks, btn_state):
@@ -77,14 +77,14 @@ def remove_task(task_widgets, tasks, btn_state):
     btn_state.pop(i)
     task_widgets.pop(i)
     while i < len(task_widgets):
-        task_widgets[i]["name"].grid(row=i,column=0,padx=3,pady=2,sticky="nsew")
-        task_widgets[i]["desc"].grid(row=i,column=1,padx=3,pady=2,sticky="nsew")
-        task_widgets[i]["due"].grid(row=i,column=2,padx=3,pady=2,sticky="nsew")
-        task_widgets[i]["done"].grid(row=i,column=3,padx=3,pady=2,sticky="nsew")
+        task_widgets[i]["name"].grid(row=i,column=0,sticky="nsew")
+        task_widgets[i]["desc"].grid(row=i,column=1,sticky="nsew")
+        task_widgets[i]["due"].grid(row=i,column=2,sticky="nsew")
+        task_widgets[i]["done"].grid(row=i,column=3,sticky="nsew")
         i+=1
 
 # print(read_tasks())
 
 def time_thread(window):
     print("1s done")
-    window.after(1000, time_thread(window))
+    window.after(1000, lambda : time_thread(window))
